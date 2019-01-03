@@ -10,4 +10,9 @@ public class Micro1Controller {
 	public String testApi() {
 		return "Test HopTQ";
 	}
+	
+	@RequestMapping("/test2")
+	public String testApi2() {
+		return "Test HopTQ2";
+	}
 }

@@ -1,18 +1,21 @@
 server:  
   port: ${PORT:9999}
-
 spring:  
   application:
-    name: auth-server   
-  security:
-   user:
-    name: root
-    password: password
-security:
-  oauth2:
-    client:
-      client-id: acme
-      client-secret: secret
+    name: auth-server
+  datasource:
+    url : jdbc:postgresql://localhost:5432/hoptq
+    username : hoptq
+    password : 12345678
+  jpa:
+    properties:
+      hibernate:
+        dialect : org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation : true
+    hibernate:
+      ddl-auto : update
       
 eureka:
   client:

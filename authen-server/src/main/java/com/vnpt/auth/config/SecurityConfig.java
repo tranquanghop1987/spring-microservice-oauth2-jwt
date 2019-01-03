@@ -8,19 +8,20 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import com.vnpt.auth.service.CustomUserDetailsService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+	private CustomUserDetailsService customUserDetailsService;
 	
 //	@Override
 //	@Bean
@@ -37,9 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	 public void configure(AuthenticationManagerBuilder auth) throws Exception{
-		 auth.inMemoryAuthentication()
-		 .withUser("admin").password(passwordEncoder.encode("admin")).roles("ADMIN").and()
-	        .withUser("root").password("password").roles("USER");
+		auth.userDetailsService(customUserDetailsService);
 	 }
 	
 	@Bean
