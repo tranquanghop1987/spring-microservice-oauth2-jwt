@@ -10,19 +10,20 @@ logging:
     org.springframework.cloud.netflix.zuul: TRACE
     
 zuul:
+  ignoreSecurityHeaders: false
   ignoredServices: '*'
   routes:  
     micro:
-      path: /**
+      path: /api/**
       sensitiveHeaders:
       serviceId: micro1
     auth:
-      path: /**
+      path: /auth/**
       sensitiveHeaders:
       serviceId: auth-server
       
 eureka:
   client:
-    registerWithEureka: true
+    registerWithEureka: false
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/

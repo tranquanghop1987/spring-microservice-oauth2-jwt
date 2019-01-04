@@ -41,6 +41,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
             .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
             .scopes("read", "write", "trust")
             .secret(passwordEncoder().encode("secret"))
+            .autoApprove(true)
             .accessTokenValiditySeconds(120)
             .refreshTokenValiditySeconds(600)
             ;
