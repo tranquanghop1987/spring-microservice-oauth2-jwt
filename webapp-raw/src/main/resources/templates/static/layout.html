@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<!-- Header -->
+<header th:fragment="header" class="app-header navbar">
+      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img class="navbar-brand-full" th:src="@{/img/brand/vnpt-logo2.png}" width="89" height="25" alt="CoreUI Logo">
+        <img class="navbar-brand-minimized" src="@{/img/brand/sygnet.svg}" width="30" height="30" alt="CoreUI Logo">
+      </a>
+      <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <ul class="nav navbar-nav d-md-down-none">
+        <li class="nav-item px-3">
+          <a class="nav-link" th:href="@{/}">Trang chủ</a>
+        </li>
+        <li class="nav-item px-3">
+          <a class="nav-link" th:href="#">Hồ sơ</a>
+        </li>
+        <li class="nav-item px-3">
+          <a class="nav-link" href="#">Cấu hình</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item d-md-down-none">
+          <a class="nav-link" href="#">
+            <i class="icon-list"></i>
+          </a>
+        </li>
+        <li class="nav-item d-md-down-none">
+          <a class="nav-link" href="#">
+            <i class="icon-location-pin"></i>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <img class="img-avatar" th:src="@{/img/avatars/account.png}" alt="admin@bootstrapmaster.com">
+          </a>
+          <div id="aside-menu-lg-show" class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-header text-center">
+              <strong>Tùy chọn</strong>
+            </div>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-user"></i>Hồ sơ</a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-wrench"></i>Cấu hình</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" th:href="@{/logout}">
+              <i class="fa fa-lock"></i> Đăng xuất</a>
+          </div>
+        </li>
+      </ul>
+    </header>
+
+<!-- Sidebar -->
+	<div th:fragment="sidebar" class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-title" th:each="menuItem : ${session.listMenuItem}">
+            	<span th:text="${menuItem.categoryName}"></span>
+            	<ul  class="nav">
+	            	<li  th:each="subMenuItem : ${menuItem.listSubCategory}" class="nav-item">
+		            	<a class="nav-link" th:href="${subMenuItem.url}">
+		                <i class="nav-icon icon-pencil" th:href="${subMenuItem.url}"></i><span th:text="${subMenuItem.categoryName}"></span></a>
+		            </li>
+            	</ul>
+            </li>
+          </ul>
+        </nav>
+        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+      </div>
+  
+<!-- Breadcrumb -->  
+<ol th:fragment="breadcrumb" class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Chi tiết</li>
+        </ol>
+      
+<!-- Footer -->
+	<footer th:fragment="footer" class="app-footer">
+		<div>
+			<a href="https://vnpt.com.vn/">VNPT</a> <span>&copy; Phòng Phần Mềm 3</span>
+		</div>
+		<div class="ml-auto">
+			<span>Phát triển bởi</span> <a href="#">HopTQ</a>
+		</div>
+	</footer>
+</body>
+</html>

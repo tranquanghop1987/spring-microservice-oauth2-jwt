@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head  th:replace="static/head::head">
+    <meta charset="utf-8">
+  </head>
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header th:replace="static/layout::header"></header>
+    <div class="app-body">
+      <div th:replace="static/layout::sidebar"></div>
+      <div class="main">
+        <ol  th:replace="static/layout::breadcrumb" class="breadcrumb"></ol>
+        <div class="container-fluid">
+          <div class="animated fadeIn">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">Quản lý người dùng</div>
+                  <div class="card-body">
+                  	<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addModal">Tạo mới người dùng</button>
+                  </div>
+                  <div th:replace="pages/user/user-add-edit::user-add-modal"></div>
+                  <div th:replace="pages/user/user-add-edit::user-edit-modal"></div>
+                  <div class="card-body">
+                  	<form th:action="@{/user/list}">
+                  		<div class="form-group row">
+		                  	<div class="col-md-3">
+		                  		<h4>Danh sách người dùng</h4>
+		                  	</div>
+	                  		<div class="col-md-5"></div>
+			                    <div class="col-md-3">
+			                      <input class="form-control" type="text" th:name="keyword" placeholder="Tìm kiếm theo username, email">
+			                    </div>
+		                    <div class="col-md-1">
+		                    	<button class="btn btn-success" type="submit">Tìm kiếm</button>
+		                    </div>
+                     	</div>
+                     </form>
+                  	<table class="table table-responsive-sm table-bordered table-striped table-sm">
+                      <thead>
+                        <tr>
+                          <th>Username</th>
+                          <th>Email</th>
+                          <th>Quyền</th>
+                          <th>Thao tác</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each="userItem : ${listUser}">
+                          <td th:text="${userItem.username}"></td>
+                          <td th:text="${userItem.email}"></td>
+                          <td th:text="${userItem.role}"></td>
+                          <td>
+                            <button class="btn-xs btn-primary" type="button" th:onclick="javascript:updateUser([[${userItem.username}]])">Sửa</button>
+<!--                             <button class="btn-xs btn-danger" type="button" th:onclick="deleteUser('${userItem.username}')">Xóa</button> -->
+                            <button class="btn-xs btn-danger" type="button" th:onclick="javascript:deleteUser([[${userItem.username}]])">Xóa</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer th:replace="static/layout::footer"></footer>
+    <div th:replace="static/script::script"></div>
+    <script th:inline="javascript">
+    	function updateUser(username){
+    		$('#editModal').modal('show');
+    		$.get("/user/" + username, function(data) {
+    			console.log(data.toSource());
+    			$("#username-edit").val(data.username);
+    			$("#email-edit").val(data.email);
+    			$("#role-edit").val(data.roleId);
+   			});
+    	}
+    
+    	function deleteUser(username){
+    		$.post("/user/delete/"+username, function(){
+    			window.location.href="/user/list";
+    		});
+    	}
+    </script>
+  </body>
+</html>
