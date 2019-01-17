@@ -21,6 +21,10 @@ zuul:
       path: /auth/**
       sensitiveHeaders:
       serviceId: auth-server
+    category:
+      path: /category/**
+      sensitiveHeaders:
+      serviceId: category-service
       
 eureka:
   client:

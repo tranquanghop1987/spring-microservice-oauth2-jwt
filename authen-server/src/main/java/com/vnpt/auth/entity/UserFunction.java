@@ -16,7 +16,7 @@ public class UserFunction implements Serializable {
 
 	@Id
 	@Column(name="user_function_id")
-	private Integer userFunctionId;
+	private Long userFunctionId;
 
 	private String description;
 
@@ -26,11 +26,11 @@ public class UserFunction implements Serializable {
 	public UserFunction() {
 	}
 
-	public Integer getUserFunctionId() {
+	public Long getUserFunctionId() {
 		return this.userFunctionId;
 	}
 
-	public void setUserFunctionId(Integer userFunctionId) {
+	public void setUserFunctionId(Long userFunctionId) {
 		this.userFunctionId = userFunctionId;
 	}
 

@@ -1,6 +1,0 @@
-server:  
-  port: ${PORT:8087}
-  
-spring:  
-  application:
-    name: micro2

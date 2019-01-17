@@ -17,7 +17,7 @@ public class UserRole implements Serializable {
 
 	@Id
 	@Column(name="user_role_id")
-	private Integer userRoleId;
+	private Long userRoleId;
 
 	private String description;
 
@@ -31,11 +31,11 @@ public class UserRole implements Serializable {
 	public UserRole() {
 	}
 
-	public Integer getUserRoleId() {
+	public Long getUserRoleId() {
 		return this.userRoleId;
 	}
 
-	public void setUserRoleId(Integer userRoleId) {
+	public void setUserRoleId(Long userRoleId) {
 		this.userRoleId = userRoleId;
 	}
 

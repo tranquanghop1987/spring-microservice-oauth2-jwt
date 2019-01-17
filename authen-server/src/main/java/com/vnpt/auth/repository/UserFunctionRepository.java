@@ -11,5 +11,5 @@ import com.vnpt.auth.entity.UserFunction;
 public interface UserFunctionRepository extends CrudRepository<UserFunction, Long> {
 	
 	@Query(value = "SELECT u FROM UserFunction u INNER JOIN FunctionRole f ON u.userFunctionId = f.id.userFunctionId WHERE f.id.userRoleId = :userRoleId")
-	public List<UserFunction> findAllByUserRoleId(@Param("userRoleId") Integer userRoleId);
+	public List<UserFunction> findAllByUserRoleId(@Param("userRoleId") Long userRoleId);
 }

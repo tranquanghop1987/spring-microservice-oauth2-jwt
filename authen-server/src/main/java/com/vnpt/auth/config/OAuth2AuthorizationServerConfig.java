@@ -35,15 +35,26 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
  
-        clients.inMemory()
-            .withClient("acme")
-            .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-            .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-            .scopes("read", "write", "trust")
-            .secret(passwordEncoder().encode("secret"))
-            .autoApprove(true)
-            .accessTokenValiditySeconds(120)
-            .refreshTokenValiditySeconds(600)
+        clients
+        	.inMemory()
+	            .withClient("acme")
+	            .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
+	            .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
+	            .scopes("read", "write", "trust")
+	            .secret(passwordEncoder().encode("secret"))
+	            .autoApprove(true)
+	            .accessTokenValiditySeconds(3600)
+	            .refreshTokenValiditySeconds(7200)
+	            .and()
+	            .withClient("webapp")
+	            .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
+	            .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
+	            .scopes("read", "write", "trust")
+	            .secret(passwordEncoder().encode("webapp"))
+	            .autoApprove(true)
+	            .redirectUris("http://localhost:1994/login")
+	            .accessTokenValiditySeconds(3600)
+	            .refreshTokenValiditySeconds(7200)
             ;
     }
     

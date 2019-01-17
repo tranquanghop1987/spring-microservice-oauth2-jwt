@@ -13,23 +13,23 @@ public class FunctionRolePK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="user_role_id")
-	private Integer userRoleId;
+	private Long userRoleId;
 
 	@Column(name="user_function_id")
-	private Integer userFunctionId;
+	private Long userFunctionId;
 
 	public FunctionRolePK() {
 	}
-	public Integer getUserRoleId() {
+	public Long getUserRoleId() {
 		return this.userRoleId;
 	}
-	public void setUserRoleId(Integer userRoleId) {
+	public void setUserRoleId(Long userRoleId) {
 		this.userRoleId = userRoleId;
 	}
-	public Integer getUserFunctionId() {
+	public Long getUserFunctionId() {
 		return this.userFunctionId;
 	}
-	public void setUserFunctionId(Integer userFunctionId) {
+	public void setUserFunctionId(Long userFunctionId) {
 		this.userFunctionId = userFunctionId;
 	}
 

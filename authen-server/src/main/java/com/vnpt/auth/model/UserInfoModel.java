@@ -2,10 +2,11 @@ package com.vnpt.auth.model;
 
 import java.util.List;
 
-public class VnptUserModel {
+public class UserInfoModel {
 	private String username;
 	private String email;
-	private String password;
+	private String role;
+	private Long roleId;
 	private List<String> listUserFunction;
 	public String getUsername() {
 		return username;
@@ -19,11 +20,11 @@ public class VnptUserModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
+	public String getRole() {
+		return role;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	public List<String> getListUserFunction() {
 		return listUserFunction;
@@ -31,4 +32,11 @@ public class VnptUserModel {
 	public void setListUserFunction(List<String> listUserFunction) {
 		this.listUserFunction = listUserFunction;
 	}
+	public Long getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+	
 }

@@ -1,8 +1,0 @@
-server:  
-  port: ${PORT:1994}
-  
-spring:  
-  application:
-    name: webapp
-  thymeleaf:
-    cache : false

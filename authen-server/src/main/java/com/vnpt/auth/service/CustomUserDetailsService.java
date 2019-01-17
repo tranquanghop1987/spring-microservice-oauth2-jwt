@@ -36,7 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		VnptUser vnptUser = vnptUserRepository.findOneByUsername(username);
 		
 		UserRole userRole = vnptUser.getUserRole();
-		Integer userRoleId = userRole.getUserRoleId();
+		Long userRoleId = userRole.getUserRoleId();
 		List<UserFunction> listUserFunction = userFunctionRepository.findAllByUserRoleId(userRoleId);
 		List<String> listUserFunctionStr = new ArrayList<String>();
 		listUserFunction.forEach(userFunction -> listUserFunctionStr.add(userFunction.getUserFunctionName()));

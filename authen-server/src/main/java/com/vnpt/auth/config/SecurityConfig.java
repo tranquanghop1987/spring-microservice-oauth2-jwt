@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.vnpt.auth.service.CustomUserDetailsService;
 
@@ -61,5 +63,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         defaultTokenServices.setTokenStore(tokenStore());
         defaultTokenServices.setSupportRefreshToken(true);
         return defaultTokenServices;
+    }
+	
+    @Override
+    protected void configure(final HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//            .antMatchers("/login*").permitAll()
+//            .anyRequest().authenticated();
+        
+        http.requestMatchers()
+        .antMatchers("/login", "/oauth/authorize")
+        .and()
+        .authorizeRequests()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .formLogin()
+        .permitAll();
     }
 }
