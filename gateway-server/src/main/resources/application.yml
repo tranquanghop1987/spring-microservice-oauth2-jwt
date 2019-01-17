@@ -12,11 +12,7 @@ logging:
 zuul:
   ignoreSecurityHeaders: false
   ignoredServices: '*'
-  routes:  
-    micro:
-      path: /api/**
-      sensitiveHeaders:
-      serviceId: micro1
+  routes:
     auth:
       path: /auth/**
       sensitiveHeaders:

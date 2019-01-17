@@ -11,8 +11,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand" href="#">
-        <img class="navbar-brand-full" th:src="@{/img/brand/vnpt-logo2.png}" width="89" height="25" alt="CoreUI Logo">
-        <img class="navbar-brand-minimized" src="@{/img/brand/sygnet.svg}" width="30" height="30" alt="CoreUI Logo">
+        <img class="navbar-brand-full" th:src="@{/img/brand/vnpt-logo2.png}" width="89" height="25" alt="VNPT IT">
       </a>
       <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>
@@ -22,7 +21,7 @@
           <a class="nav-link" th:href="@{/}">Trang chủ</a>
         </li>
         <li class="nav-item px-3">
-          <a class="nav-link" th:href="#">Hồ sơ</a>
+          <a class="nav-link" href="#">Hồ sơ</a>
         </li>
         <li class="nav-item px-3">
           <a class="nav-link" href="#">Cấu hình</a>
@@ -41,7 +40,8 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            <img class="img-avatar" th:src="@{/img/avatars/account.png}" alt="admin@bootstrapmaster.com">
+          	<span th:text="${session.userSession.email}"></span>
+            <img class="img-avatar" th:src="@{/img/avatars/account.png}" th:alt="${session.userSession.username}">
           </a>
           <div id="aside-menu-lg-show" class="dropdown-menu dropdown-menu-right">
             <div class="dropdown-header text-center">
