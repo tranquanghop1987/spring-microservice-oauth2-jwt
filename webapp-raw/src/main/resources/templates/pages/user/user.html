@@ -41,7 +41,7 @@
                           <th>Username</th>
                           <th>Email</th>
                           <th>Quyền</th>
-                          <th>Thao tác</th>
+                          <th width="10%">Thao tác</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -50,9 +50,8 @@
                           <td th:text="${userItem.email}"></td>
                           <td th:text="${userItem.role}"></td>
                           <td>
-                            <button class="btn-xs btn-primary" type="button" th:onclick="javascript:updateUser([[${userItem.username}]])">Sửa</button>
-<!--                             <button class="btn-xs btn-danger" type="button" th:onclick="deleteUser('${userItem.username}')">Xóa</button> -->
-                            <button class="btn-xs btn-danger" type="button" th:onclick="javascript:deleteUser([[${userItem.username}]])">Xóa</button>
+                            <button class="btn btn-sm btn-primary" type="button" th:onclick="javascript:updateUser([[${userItem.username}]])">Sửa</button>
+                            <button class="btn btn-sm btn-danger" type="button" th:onclick="javascript:deleteUser([[${userItem.username}]])">Xóa</button>
                           </td>
                         </tr>
                       </tbody>

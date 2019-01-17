@@ -41,7 +41,7 @@
                           <th>STT</th>
                           <th>Tên danh mục</th>
                           <th>Đường dẫn</th>
-                          <th>Thao tác</th>
+                          <th width="10%">Thao tác</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -50,8 +50,8 @@
                           <td th:text="${categoryItem.categoryName}"></td>
                           <td th:text="${categoryItem.url}"></td>
                           <td>
-                            <button class="btn-xs btn-primary" type="button" th:onclick="javascript:updateCategory([[${categoryItem.categoryId}]])">Sửa</button>
-                            <button class="btn-xs btn-danger" type="button" th:onclick="javascript:deleteCategory([[${categoryItem.categoryId}]])">Xóa</button>
+                            <button class="btn btn-sm btn-primary" type="button" th:onclick="javascript:updateCategory([[${categoryItem.categoryId}]])">Sửa</button>
+                            <button class="btn btn-sm btn-danger" type="button" th:onclick="javascript:deleteCategory([[${categoryItem.categoryId}]])">Xóa</button>
                           </td>
                         </tr>
                       </tbody>
