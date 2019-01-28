@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class UserFunction implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_function_id")
 	private Long userFunctionId;
 

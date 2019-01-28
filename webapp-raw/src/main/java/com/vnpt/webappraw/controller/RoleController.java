@@ -14,101 +14,89 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vnpt.webappraw.model.CategoryModel;
-import com.vnpt.webappraw.model.UserAddModel;
 import com.vnpt.webappraw.model.UserFunctionModel;
-import com.vnpt.webappraw.model.UserInfoResponseModel;
+import com.vnpt.webappraw.model.UserRoleModel;
 import com.vnpt.webappraw.model.UserSessionModel;
-import com.vnpt.webappraw.service.CategoryService;
-import com.vnpt.webappraw.service.FunctionService;
 import com.vnpt.webappraw.service.RoleService;
 
 @Controller
-@RequestMapping(value="/category")
-public class CategoryController {
-	
-	@Autowired
-	CategoryService categoryService;
+@RequestMapping("/role")
+public class RoleController {
 	
 	@Autowired
 	RoleService roleService;
 	
-	@Autowired
-	FunctionService functionService;
-	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String getListCategory(
+	public String searchUserRoles(
 			HttpSession session
 			,Model model
 			,@RequestParam(value="keyword", required=false) String keyword
 			) {
 		UserSessionModel userSession = (UserSessionModel)session.getAttribute("userSession");
 		if(userSession != null) {
-			List<CategoryModel> listCategory = categoryService.searchCategory(keyword != null ? keyword : "", session);
-			List<UserFunctionModel> listAllUserFunction = functionService.getAllFunction(session);
-			model.addAttribute("listCategory", listCategory);
-			model.addAttribute("listAllUserFunction", listAllUserFunction);
-			model.addAttribute("categoryModel", new CategoryModel());
-			return "pages/category/category";
+			List<UserRoleModel> listUserRoleModel = roleService.searchUserRoles(keyword != null ? keyword : "", session);
+			model.addAttribute("listUserRoleModel", listUserRoleModel);
+			return "pages/role/role";
 		}else {
 			return "redirect:/login";
 		}
 	}
 	
-	@RequestMapping(value="/{categoryId}", method=RequestMethod.GET)
-	public @ResponseBody CategoryModel userInfo(
+	@RequestMapping(value="/{userRoleId}", method=RequestMethod.GET)
+	public @ResponseBody UserRoleModel getRoleInfo(
 			HttpSession session
 			,Model model
-			,@PathVariable("categoryId") Long categoryId
+			,@PathVariable("userRoleId") Long userRoleId
 			) {
 		UserSessionModel userSession = (UserSessionModel)session.getAttribute("userSession");
 		if(userSession != null) {
-			CategoryModel categoryModel = categoryService.getCategoryDetail(categoryId, session);
-			return categoryModel;
+			UserRoleModel userRoleModel = roleService.getRoleInfo(userRoleId, session);
+			return userRoleModel;
 		}else {
 			return null;
 		}
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String addUser(
+	public String addRole(
 			HttpSession session
 			,Model model
-			,CategoryModel categoryModel
+			,UserRoleModel userRoleModel
 			) {
 		UserSessionModel userSession = (UserSessionModel)session.getAttribute("userSession");
 		if(userSession != null) {
-			String s = categoryService.addCategory(categoryModel, session);
-			return "redirect:/category/list";
+			String s = roleService.addRole(userRoleModel, session);
+			return "redirect:/role/list";
 		}else {
 			return "redirect:/login";
 		}
 	}
 	
 	@RequestMapping(value="/edit", method=RequestMethod.POST)
-	public String editUser(
+	public String editRole(
 			HttpSession session
 			,Model model
-			,CategoryModel categoryModel
+			,UserRoleModel userRoleModel
 			) {
 		UserSessionModel userSession = (UserSessionModel)session.getAttribute("userSession");
 		if(userSession != null) {
-			String s = categoryService.editCategory(categoryModel, session);
-			return "redirect:/category/list";
+			String s = roleService.editRole(userRoleModel, session);
+			return "redirect:/role/list";
 		}else {
 			return "redirect:/login";
 		}
 	}
 	
-	@RequestMapping(value="/delete/{categoryId}", method=RequestMethod.POST)
+	@RequestMapping(value="/delete/{userFunctionId}", method=RequestMethod.POST)
 	public String deleteCategory(
 			HttpSession session
 			,Model model
-			,@PathVariable("categoryId") Long categoryId
+			,@PathVariable("userFunctionId") Long userFunctionId
 			) {
 		UserSessionModel userSession = (UserSessionModel)session.getAttribute("userSession");
 		if(userSession != null) {
-			String s = categoryService.deleteCategory(categoryId, session);
-			return "redirect:/category/list";
+			String s = roleService.deleteRole(userFunctionId, session);
+			return "redirect:/role/list";
 		}else {
 			return "redirect:/login";
 		}

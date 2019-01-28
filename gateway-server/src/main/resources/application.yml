@@ -21,6 +21,10 @@ zuul:
       path: /category/**
       sensitiveHeaders:
       serviceId: category-service
+management:
+  endpoints:
+    web:
+      base-path: /routes
       
 eureka:
   client:

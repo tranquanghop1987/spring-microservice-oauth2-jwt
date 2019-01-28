@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head  th:replace="static/head::head">
+    <meta charset="utf-8">
+  </head>
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header th:replace="static/layout::header"></header>
+    <div class="app-body">
+      <div th:replace="static/layout::sidebar"></div>
+      <div class="main">
+        <ol  th:replace="static/layout::breadcrumb" class="breadcrumb"></ol>
+        <div class="container-fluid">
+          <div class="animated fadeIn">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">Quản lý quyền hạn</div>
+                  <div class="card-body">
+                  	<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addModal">Tạo mới quyền hạn</button>
+                  </div>
+                  <div th:replace="pages/function/function-add-edit::function-add-modal"></div>
+                  <div th:replace="pages/function/function-add-edit::function-edit-modal"></div>
+                  <div class="card-body">
+                  	<form>
+                  		<div class="form-group row">
+		                  	<div class="col-md-3">
+		                  		<h4>Danh sách quyền hạn</h4>
+		                  	</div>
+	                  		<div class="col-md-5"></div>
+			                    <div class="col-md-3">
+			                      <input class="form-control" type="text" th:name="keyword" placeholder="Tìm kiếm theo tên quyền hạn">
+			                    </div>
+		                    <div class="col-md-1">
+		                    	<button class="btn btn-success" type="submit">Tìm kiếm</button>
+		                    </div>
+                     	</div>
+                     </form>
+                  	<table class="table table-responsive-sm table-bordered table-striped table-sm">
+                      <thead>
+                        <tr>
+                          <th>STT</th>
+                          <th>Tên quyền hạn</th>
+                          <th>Mô tả</th>
+                          <th width="10%">Thao tác</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      	<tr th:each="userFunctionItem, index : ${listUserFunction}">
+                          <td th:text="${index.count}"></td>
+                          <td th:text="${userFunctionItem.userFunctionName}"></td>
+                          <td th:text="${userFunctionItem.description}"></td>
+                          <td>
+                            <button class="btn btn-sm btn-primary" type="button" th:onclick="javascript:updateFunction([[${userFunctionItem.userFunctionId}]])">Sửa</button>
+                            <button class="btn btn-sm btn-danger" type="button" th:onclick="javascript:deleteFunction([[${userFunctionItem.userFunctionId}]])">Xóa</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer th:replace="static/layout::footer"></footer>
+    <div th:replace="static/script::script"></div>
+    <script th:inline="javascript">
+    	function updateFunction(functionId){
+    		$('#editModal').modal('show');
+    		$.get("/function/" + functionId, function(data) {
+    			$("#userFunctionId-edit").val(data.userFunctionId);
+    			$("#userFunctionName-edit").val(data.userFunctionName);
+    			$("#description-edit").val(data.description);
+   			});
+    	}
+    
+    	function deleteFunction(functionId){
+    		$.post("/function/delete/"+functionId, function(){
+    			window.location.href="/function/list";
+    		});
+    	}
+    </script>
+  </body>
+</html>

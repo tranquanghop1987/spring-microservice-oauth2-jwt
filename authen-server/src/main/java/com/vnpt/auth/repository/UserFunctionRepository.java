@@ -12,4 +12,9 @@ public interface UserFunctionRepository extends CrudRepository<UserFunction, Lon
 	
 	@Query(value = "SELECT u FROM UserFunction u INNER JOIN FunctionRole f ON u.userFunctionId = f.id.userFunctionId WHERE f.id.userRoleId = :userRoleId")
 	public List<UserFunction> findAllByUserRoleId(@Param("userRoleId") Long userRoleId);
+	
+	@Query(value = "SELECT u FROM UserFunction u WHERE u.userFunctionName like %:keyword%")
+	public List<UserFunction> searchByKeyword(@Param("keyword") String keyword);
+	
+	public UserFunction findOneByUserFunctionId(Long userFunctionId);
 }
