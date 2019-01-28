@@ -18,8 +18,8 @@
                   <div class="card-body">
                   	<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addModal">Tạo mới chức danh</button>
                   </div>
-<!--                   <div th:replace="pages/role/role-add-edit::role-add-modal"></div> -->
-<!--                   <div th:replace="pages/role/role-add-edit::role-edit-modal"></div> -->
+                  <div th:replace="pages/role/role-add-edit::role-add-modal"></div>
+                  <div th:replace="pages/role/role-add-edit::role-edit-modal"></div>
                   <div class="card-body">
                   	<form>
                   		<div class="form-group row">
@@ -50,8 +50,8 @@
                           <td th:text="${userRoleItem.userRoleName}"></td>
                           <td th:text="${userRoleItem.description}"></td>
                           <td>
-                            <button class="btn btn-sm btn-primary" type="button" th:onclick="javascript:updateFunction([[${userRoleItem.userRoleId}]])">Sửa</button>
-                            <button class="btn btn-sm btn-danger" type="button" th:onclick="javascript:deleteFunction([[${userRoleItem.userRoleId}]])">Xóa</button>
+                            <button class="btn btn-sm btn-primary" type="button" th:onclick="javascript:updateRole([[${userRoleItem.userRoleId}]])">Sửa</button>
+                            <button class="btn btn-sm btn-danger" type="button" th:onclick="javascript:deleteRole([[${userRoleItem.userRoleId}]])">Xóa</button>
                           </td>
                         </tr>
                       </tbody>
@@ -67,23 +67,20 @@
     <footer th:replace="static/layout::footer"></footer>
     <div th:replace="static/script::script"></div>
     <script th:inline="javascript">
-    	function updateRole(categoryId){
-//     		$('#editModal').modal('show');
-    		
-//     		$.get("/category/" + categoryId, function(data) {
-//     			$("#categoryId-edit").val(data.categoryId);
-//     			$("#categoryName-edit").val(data.categoryName);
-//     			$("#url-edit").val(data.url);
-//     			$("#description-edit").val(data.description);
-//     			$("#parentId-edit").val(data.parentId);
-//    			});
+    	function updateRole(userRoleId){
+    		$('#editModal').modal('show');
+    		$.get("/role/" + userRoleId, function(data) {
+    			console.log(data.toSource());
+    			$("#userRoleId-edit").val(data.userRoleId);
+    			$("#userRoleName-edit").val(data.userRoleName);
+    			$("#description-edit").val(data.description);
+   			});
     	}
     
-    	function deleteRole(categoryId){
-//     		console.log(categoryId);
-//     		$.post("/category/delete/"+categoryId, function(){
-//     			window.location.href="/category/list";
-//     		});
+    	function deleteRole(userRoleId){
+    		$.post("/role/delete/" + userRoleId, function(){
+    			window.location.href="/role/list";
+    		});
     	}
     </script>
   </body>

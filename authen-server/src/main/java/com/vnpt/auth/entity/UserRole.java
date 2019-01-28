@@ -15,7 +15,7 @@ import java.util.List;
 public class UserRole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_role_id")
 	private Long userRoleId;
 

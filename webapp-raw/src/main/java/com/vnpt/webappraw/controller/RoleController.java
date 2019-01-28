@@ -17,6 +17,7 @@ import com.vnpt.webappraw.model.CategoryModel;
 import com.vnpt.webappraw.model.UserFunctionModel;
 import com.vnpt.webappraw.model.UserRoleModel;
 import com.vnpt.webappraw.model.UserSessionModel;
+import com.vnpt.webappraw.service.FunctionService;
 import com.vnpt.webappraw.service.RoleService;
 
 @Controller
@@ -25,6 +26,9 @@ public class RoleController {
 	
 	@Autowired
 	RoleService roleService;
+	
+	@Autowired
+	FunctionService functionService;
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String searchUserRoles(
@@ -35,7 +39,10 @@ public class RoleController {
 		UserSessionModel userSession = (UserSessionModel)session.getAttribute("userSession");
 		if(userSession != null) {
 			List<UserRoleModel> listUserRoleModel = roleService.searchUserRoles(keyword != null ? keyword : "", session);
+			List<UserFunctionModel> listAllUserFunction = functionService.getAllFunction(session);
 			model.addAttribute("listUserRoleModel", listUserRoleModel);
+			model.addAttribute("listAllUserFunction", listAllUserFunction);
+			model.addAttribute("userRoleModel", new UserRoleModel());
 			return "pages/role/role";
 		}else {
 			return "redirect:/login";
