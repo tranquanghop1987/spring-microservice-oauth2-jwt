@@ -1,6 +1,7 @@
 package com.vnpt.auth;
 
 import java.security.Principal;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vnpt.auth.model.UserInfoModel;
 import com.vnpt.auth.service.UserService;
 
 @SpringBootApplication
@@ -28,9 +28,9 @@ public class AuthenServerApplication {
 	}
 
 	@RequestMapping("/user/me")
-	public @ResponseBody UserInfoModel user(Principal user) {
+	public @ResponseBody Map<String,Object> user(Principal user) {
 		String username = user.getName();
-		UserInfoModel userInfoResponseModel = userservice.getUserInfoByUsername(username);
+		Map<String,Object> userInfoResponseModel = userservice.getUserInfoByUsername(username);
 		return userInfoResponseModel;
 	}
 }

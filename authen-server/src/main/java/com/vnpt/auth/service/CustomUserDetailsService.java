@@ -1,7 +1,7 @@
 package com.vnpt.auth.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,22 +10,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.vnpt.auth.entity.UserFunction;
-import com.vnpt.auth.entity.UserRole;
-import com.vnpt.auth.entity.VnptUser;
 import com.vnpt.auth.model.CustomUserDetail;
 import com.vnpt.auth.model.VnptUserModel;
-import com.vnpt.auth.repository.UserFunctionRepository;
-import com.vnpt.auth.repository.VnptUserRepository;
+import com.vnpt.auth.repository.UserFunctionRepositoryJdbc;
+import com.vnpt.auth.repository.VnptUserRepositoryJdbc;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Autowired
-	VnptUserRepository vnptUserRepository;
+	VnptUserRepositoryJdbc vnptUserRepository;
 	
 	@Autowired
-	UserFunctionRepository userFunctionRepository;
+	UserFunctionRepositoryJdbc userFunctionRepository;
 	
 	@Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -33,19 +30,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		VnptUser vnptUser = vnptUserRepository.findOneByUsername(username);
+		Map<String,Object> vnptUser = vnptUserRepository.findOneByUsername(username);
 		
-		UserRole userRole = vnptUser.getUserRole();
-		Long userRoleId = userRole.getUserRoleId();
-		List<UserFunction> listUserFunction = userFunctionRepository.findAllByUserRoleId(userRoleId);
-		List<String> listUserFunctionStr = new ArrayList<String>();
-		listUserFunction.forEach(userFunction -> listUserFunctionStr.add(userFunction.getUserFunctionName()));
+		Integer userRoleId = (Integer)vnptUser.get("user_role_id");
+		List<String> listUserFunction = userFunctionRepository.findAllByUserRoleId(userRoleId);
 		
 		VnptUserModel vnptUserModel = new VnptUserModel();
-		vnptUserModel.setUsername(vnptUser.getUsername());
-		vnptUserModel.setPassword(passwordEncoder.encode(vnptUser.getPassword()));
-		vnptUserModel.setEmail(vnptUser.getEmail());
-		vnptUserModel.setListUserFunction(listUserFunctionStr);
+		vnptUserModel.setUsername((String)vnptUser.get("username"));
+		vnptUserModel.setPassword(passwordEncoder.encode((String)vnptUser.get("password")));
+		vnptUserModel.setEmail((String)vnptUser.get("email"));
+		vnptUserModel.setListUserFunction(listUserFunction);
 		
 		CustomUserDetail customUserDetail = new CustomUserDetail(vnptUserModel);
 		return customUserDetail;
