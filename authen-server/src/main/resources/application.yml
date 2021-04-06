@@ -3,17 +3,24 @@ server:
 spring:  
   application:
     name: auth-server
-  datasource:
-    url : jdbc:postgresql://localhost:5432/hoptq
-    username : hoptq
-    password : 12345678
+  postgresql:
+    datasource:
+      jdbc-url: jdbc:postgresql://localhost:5432/hoptq
+      username: hoptq
+      password: 12345678
+      driver-class-name: org.postgresql.Driver
+      connection-test-query: SELECT 1
+  mysql:
+    datasource:
+      jdbc-url: jdbc:mysql://server2/db_2
+      username: user
+      password: password
+      driver-class-name: com.mysql.jdbc.Driver
+      connection-test-query: SELECT 1
   jpa:
     properties:
       hibernate:
         dialect : org.hibernate.dialect.PostgreSQLDialect
-        jdbc:
-          lob:
-            non_contextual_creation : true
     hibernate:
       ddl-auto : update
       
